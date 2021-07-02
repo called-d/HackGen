@@ -412,6 +412,21 @@ input_list  = ["${input_hack_regular}",    "${input_hack_bold}"]
 input_mod_arrow_list  = ["${input_mod_arrow_regular}",    "${input_mod_arrow_bold}"]
 output_list = ["${modified_hack_material_regular}", "${modified_hack_material_bold}"]
 
+# Enable all flags
+flag_asterisk="true"
+flag_plus="true"
+flag_hyphen="true"
+flag_7="true"
+flag_less_greater="true"
+flag_equal="true"
+flag_D="true"
+flag_Z="true"
+flag_asciicircum="true"
+#flag_r="true"
+flag_z="true"
+flag_asciitilde="true"
+flag_asterisk="true"
+
 # Begin loop of regular and bold
 i = 0
 while (i < SizeOf(input_list))
@@ -487,6 +502,106 @@ while (i < SizeOf(input_list))
 
   # 結合分音記号は全て源柔ゴシックをベースにするため削除する
   Select(0u0300, 0u036f); Clear()
+
+  # Discord
+# " -> magnified " 白源で調整済により省略
+# ' -> magnified ' 白源で調整済により省略
+
+# * -> * moved downward a little
+if (flag_asterisk == "true")
+    Select(0u002a); Move(0, -80)
+endif
+
+# + -> + moved downward a little
+if (flag_plus == "true")
+    Select(0u002b); Move(0, -80)
+endif
+
+# , -> magnified , 白源で調整済により省略
+
+# - -> - moved downward a little
+if (flag_hyphen == "true")
+    Select(0u002d); Move(0, -80)
+endif
+
+# . -> magnified . 白源で調整済により省略
+
+# 0 -> dotted 0 白源で生成済により省略
+
+# 7 -> 7 with cross-bar
+if (flag_7 == "true")
+    Select(0u00af); Copy() # macron
+    Select(0u0037); PasteWithOffset(20, -263)
+    RoundToInt(); RemoveOverlap(); RoundToInt()
+endif
+
+# : -> magnified : 白源で調整済により省略
+
+# ; -> magnified ; 白源で調整済により省略
+
+# < and > -> < and > moved downward a little
+if (flag_less_greater == "true")
+    Select(0u003c); Move(0, -80)
+    Select(0u003e); Move(0, -80)
+endif
+
+# = -> = moved downward a little
+if (flag_equal == "true")
+    Select(0u003d); Move(0, -80)
+endif
+
+# D -> D of Eth (D with cross-bar)
+if (flag_D == "true")
+    Select(0u0110); Copy()
+    Select(0u0044); Paste()
+endif
+
+# Z -> Z with cross-bar
+if (flag_Z == "true")
+    Select(0u00af); Copy()  # macron
+    Select(65552);  Paste() # Temporary glyph
+    Transform(100, -65, 0, 100, 0, -12000); SetWidth(500)
+    Copy()
+    Select(0u005a); PasteInto()
+    RoundToInt(); RemoveOverlap(); RoundToInt()
+    Select(65552);  Clear() # Temporary glyph
+endif
+
+# ^ -> magnified ^
+if (flag_asciicircum == "true")
+    Select(0u005e); Scale(115, 115, 250, 600); SetWidth(500)
+    RoundToInt(); RemoveOverlap(); RoundToInt()
+endif
+
+# \` -> magnified \` 白源で調整済により省略
+
+# l -> l of cutting off left-bottom serif 白源では元から取れてるので省略
+
+# r -> r of serif (Inconsolata's unused glyph) 無いのでコメントアウト
+#if (flag_r == "true")
+#    Select(65542);  Copy()
+#    Select(0u0072); Paste()
+#endif
+
+# z -> z with cross-bar
+if (flag_z == "true")
+    Select(0u00af); Copy()  # macron
+    Select(65552);  Paste() # Temporary glyph
+    Transform(75, -52, 0, 100, 5500, -23500); SetWidth(500)
+    Copy()
+    Select(0u007a); PasteInto()
+    RoundToInt(); RemoveOverlap(); RoundToInt()
+    Select(65552);  Clear() # Temporary glyph
+endif
+
+# | -> broken | # 白源で生成済により省略
+
+# ~ -> ~ moved upward
+if (flag_asciitilde == "true")
+    Select(0u007e); Move(0, 120)
+endif
+
+  # Discordここまで
 
   # パスの小数点以下を切り捨て
   SelectWorthOutputting()
