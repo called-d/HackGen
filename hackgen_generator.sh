@@ -427,6 +427,13 @@ flag_z="true"
 flag_asciitilde="true"
 flag_asterisk="true"
 
+flag_plus="false"
+flag_hyphen="false"
+flag_less_greater="false"
+flag_equal="false"
+flag_asciicircum="false"
+flag_asciitilde="false"
+
 # Begin loop of regular and bold
 i = 0
 while (i < SizeOf(input_list))
@@ -531,7 +538,7 @@ endif
 # 7 -> 7 with cross-bar
 if (flag_7 == "true")
     Select(0u00af); Copy() # macron
-    Select(0u0037); PasteWithOffset(20, -263)
+    Select(0u0037); PasteWithOffset(46, -400)
     RoundToInt(); RemoveOverlap(); RoundToInt()
 endif
 
@@ -560,7 +567,7 @@ endif
 if (flag_Z == "true")
     Select(0u00af); Copy()  # macron
     Select(65552);  Paste() # Temporary glyph
-    Transform(100, -65, 0, 100, 0, -12000); SetWidth(500)
+    Transform(100, -65, 0, 140, 0, -42000); SetWidth(500)
     Copy()
     Select(0u005a); PasteInto()
     RoundToInt(); RemoveOverlap(); RoundToInt()
@@ -587,7 +594,7 @@ endif
 if (flag_z == "true")
     Select(0u00af); Copy()  # macron
     Select(65552);  Paste() # Temporary glyph
-    Transform(75, -52, 0, 100, 5500, -23500); SetWidth(500)
+    Transform(75, -52, 3, 130, 5500, -48000); SetWidth(500)
     Copy()
     Select(0u007a); PasteInto()
     RoundToInt(); RemoveOverlap(); RoundToInt()
